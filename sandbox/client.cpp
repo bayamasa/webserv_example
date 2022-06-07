@@ -17,7 +17,7 @@ int main(void)
 	struct sockaddr_in sa;
 	char buf[1024];
 	
-	if (socket(AF_INET, SOCK_STREAM, 0) == -1){
+	if ((s = socket(AF_INET, SOCK_STREAM, 0)) == -1){
 		perror("connect");
 		exit(1);
 	}

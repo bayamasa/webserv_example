@@ -49,6 +49,7 @@ int main(void)
 		perror("listen");
 		exit(1);
 	}
+	printf("socket %d\n", s);
 	fprintf(stderr, "Ready.\n");
 	for (;;){
 		fprintf(stderr, "Waiting for a connection...\n");
