@@ -87,16 +87,18 @@ int main(void)
 		fd_set readfds;
 		
 		FD_ZERO(&readfds);
+		// socketをreadfdsに追加
 		FD_SET(s, &readfds);
 		maxfd = s;
 		for (i = 0; i < nclients; i++){
-			// ここで何をやっているのかが明確にわからない
+			// clientsをreadfdsに追加
 			FD_SET(clients[i], &readfds);
 			if (clients[i] > maxfd){
 				maxfd = clients[i];
 			}
 		}
 		std::cout << "maxfd: " << maxfd << std::endl;
+		//第一引数は見張るfdに1足した値を入れる(個数ではない)
 		if (select(maxfd+1, &readfds, NULL, NULL, NULL) < 0)
 		{
 			perror("select");
@@ -110,6 +112,7 @@ int main(void)
 			int ws;
 			
 			ca_len = sizeof(ca);
+			// 新しい接続であればfd新しく作って格納
 			if ((ws = accept(s, (struct sockaddr *)&ca, &ca_len)) == -1) {
 				perror("accept");
 				continue;
