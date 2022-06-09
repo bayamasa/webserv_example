@@ -26,7 +26,7 @@ int tcp_acc_port(int portno, int ip_version)
 		pf = PF_INET6;
 		break;
 	default:
-		fprintf(stderr, "bad ip version\n");
+		fprintf(stderr, "bad ip version");
 	}
 	snprintf(portno_str, sizeof(portno_str), "%d", portno);
 	memset(&hints, 0, sizeof(hints));
