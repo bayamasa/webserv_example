@@ -1,5 +1,5 @@
 #define SERVER_ADDR "127.0.0.1"
-#define SERVER_PORT 12345
+#define SERVER_PORT 1234 
 
 #include <netinet/in.h>
 #include <sys/types.h>
