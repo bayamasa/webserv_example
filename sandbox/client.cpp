@@ -1,5 +1,5 @@
 #define SERVER_ADDR "127.0.0.1"
-#define SERVER_PORT 1234 
+#define SERVER_PORT 12345
 
 #include <netinet/in.h>
 #include <sys/types.h>
@@ -33,6 +33,9 @@ int main(void)
 		exit(1);
 	}
 	fprintf(stderr, "Connected.\n");
+	char *msg = "";
+	send(s, msg, sizeof(msg), 0);
+
 	while ((cc = read(s, buf, sizeof(buf))) > 0)
 		write(1, buf, cc);
 	if (cc == -1)
