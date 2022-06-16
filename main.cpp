@@ -1,5 +1,9 @@
 #include "webserv.hpp"
 
+void init(){
+	
+}
+
 int main(int argc, char const *argv[])
 {
 	try
@@ -11,7 +15,7 @@ int main(int argc, char const *argv[])
 		std::cerr << str << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	
+	init();
 	
 	return 0;
 }
