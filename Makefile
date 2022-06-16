@@ -6,23 +6,32 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/16 15:38:57 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/16 17:30:04 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= main.cpp 
+
+UTILS_DIR		= utils/
+UTILS_SRCNAME	= args_handling.cpp
+
+UTILS_SRCS		= $(addprefix $(UTILS_DIR), $(UTILS_SRCNAME))
+
+SRCS			=	main.cpp \
+					$(UTILS_SRCS)
+
 OBJS			= $(SRCS:.cpp=.o)
 
 CXX				= c++
 RM				= rm -f
-CXXFLAGS		= -Wall -Wextra -Werror -I. -std=c++98 -pedantic -Wshadow
+INC				= -I ./$(UTILS_DIR)
+CXXFLAGS		= -Wall -Wextra -Werror -std=c++98 -pedantic -Wshadow
 
 NAME			= a.out
 
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+				$(CXX) $(CXXFLAGS) $(INC) $^ -o $@
 
 clean:
 				$(RM) $(OBJS)
