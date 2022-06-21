@@ -19,7 +19,7 @@
 - CGI 実行ファイルの拡張子
 - uploaded file のルーティング
 
-
+QWN	Q	
 config fileの構造はcub3dの要素みたいな感じにする
 空白が一つ以上だった場合許容しないようにする
 

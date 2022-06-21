@@ -1,18 +1,19 @@
 #ifndef CONFIG_HPP
 # define CONFIG_HPP
 
-#include <string.h>
+#include <string>
 #include <vector>
+#include "Routes.hpp"
 
 class Config
 {
 private:
 	std::string host;
 	std::string port;
-	vector<std::string> server_names;
-	vector<std::string> error_pages;
+	std::vector<std::string> server_names;
+	std::vector<std::string> error_pages;
 	std::string limit_client_body_size;
-	Routes routes;
+	// Routes routes;
 public:
 	Config();
 	~Config();

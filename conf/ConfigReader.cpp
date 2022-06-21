@@ -2,18 +2,18 @@
 
 ConfigReader::ConfigReader()
 {
-	const config_key = {
+	std::string config_key[CONFIG_ATTR_MAX] = {
 		"host",
 		"port",
 		"server_names",
 		"error_pages",
 		"limit_client_body_size",
 		"routes"
-	}
+	};
 	
 	for (size_t i = 0; i < CONFIG_ATTR_MAX; i++)
 	{
-		config_attr.insert(std::make_pair(config_key[i], false));
+		config_attr[config_key[i]] = false;
 	}
 }
 
@@ -32,35 +32,29 @@ ConfigReader &ConfigReader::operator=(const ConfigReader &other)
 	return *this;
 }
 
-vector<std::string> blankSeparator(char *line)
+void ConfigReader::Read(std::string &filename, Config &config)
 {
+	std::vector<std::string> tmp;
+	std::string line;
 	
-	std::string key;
-	std::string value;
-	std::string::size_type pos;
 
-	key = std::string(line);
-	pos = key.find(" ");
-	key.erase(pos);
-}
+	std::ifstream ifs(filename);
+	if (ifs.fail())
+		throw IOException();
+    while (getline(ifs, line)){
+        tmp.push_back(line);
+    }
 
-Config *ConfigReader::Read(std::string filename)
-{
-	FILE *fp;
 	
-	fp = fopen(filename.c_str(), "r");
-	if (fp == NULL)
-		throw IOException;
-	// 一旦一行にBuffer以上の文字が入っている場合は考えない
-	while (fgets(line, LINE_MAX_BUFFER, fp) != NULL)
+	for (std::vector<std::string>::iterator itr = tmp.begin(), e = tmp.end(); itr != e; ++itr) 
 	{
-		if(feof(fp))
-			break;
-		
-		
+		std::stringstream ss(*itr);
+		std::string key, value;
+		std::getline(ss, key, ' ');
+		std::getline(ss, value);
 	}
 	
-	
+	(void)config;
 }
 
 const char *ConfigReader::IOException::what() const throw()

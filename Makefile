@@ -6,32 +6,52 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/16 17:30:04 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/21 21:52:12 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME			:= a.out
 
-UTILS_DIR		= utils/
-UTILS_SRCNAME	= args_handling.cpp
+UTILS_DIR		:= utils/
+UTILS_SRCNAME	:= args_handling.cpp
 
-UTILS_SRCS		= $(addprefix $(UTILS_DIR), $(UTILS_SRCNAME))
+UTILS_SRCS		:= $(addprefix $(UTILS_DIR), $(UTILS_SRCNAME))
 
-SRCS			=	main.cpp \
-					$(UTILS_SRCS)
+CONF_DIR		:= conf/
+CONF_SRCNAME	:= ConfigReader.cpp Config.cpp
 
-OBJS			= $(SRCS:.cpp=.o)
+CONF_SRCS		:= $(addprefix $(CONF_DIR), $(CONF_SRCNAME))
 
-CXX				= c++
-RM				= rm -f
-INC				= -I ./$(UTILS_DIR)
-CXXFLAGS		= -Wall -Wextra -Werror -std=c++98 -pedantic -Wshadow
+CONTEXT_DIR		:= context/
+CONTEXT_SRCNAME	:= Context.cpp
 
-NAME			= a.out
+CONTEXT_SRCS	:= $(addprefix $(CONTEXT_DIR), $(CONTEXT_SRCNAME))
+
+
+SRCS			=	main.cpp $(UTILS_SRCS) $(CONF_SRCS) $(CONTEXT_SRCS) 
+
+CXX				:= c++
+RM				:= rm -f
+INC				:= -I . -I ./$(CONF_DIR) -I ./$(CONTEXT_DIR) -I ./$(UTILS_DIR)
+
+CXXFLAGS		:= -Wall -Wextra -Werror -std=c++98 $(INC) -pedantic -Wshadow
+
+
+OBJSDIR	:= ./obj/
+OBJS 	:= $(addprefix $(OBJSDIR), $(SRCS:%.cpp=%.o))
+
+SRCSDIR := ./
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS)
-				$(CXX) $(CXXFLAGS) $(INC) $^ -o $@
+$(NAME) : $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ 
+
+$(OBJS) : $(OBJSDIR)
+
+$(OBJSDIR)%.o : ./%.cpp
+	@if [ ! -e `dirname $@` ]; then mkdir -p `dirname $@`; fi
+	${CXX} ${CXXFLAGS} -c $< -o $@
 
 clean:
 				$(RM) $(OBJS)
