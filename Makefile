@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/21 21:52:12 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/21 22:05:31 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,17 @@ CONTEXT_SRCNAME	:= Context.cpp
 CONTEXT_SRCS	:= $(addprefix $(CONTEXT_DIR), $(CONTEXT_SRCNAME))
 
 
-SRCS			=	main.cpp $(UTILS_SRCS) $(CONF_SRCS) $(CONTEXT_SRCS) 
+SRCS			:=	main.cpp \
+					$(UTILS_SRCS) \
+					$(CONF_SRCS) \
+					$(CONTEXT_SRCS) 
 
 CXX				:= c++
 RM				:= rm -f
-INC				:= -I . -I ./$(CONF_DIR) -I ./$(CONTEXT_DIR) -I ./$(UTILS_DIR)
+INC				:= -I . \
+					-I ./$(CONF_DIR) \
+					-I ./$(CONTEXT_DIR) \
+					-I ./$(UTILS_DIR)
 
 CXXFLAGS		:= -Wall -Wextra -Werror -std=c++98 $(INC) -pedantic -Wshadow
 
