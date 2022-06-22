@@ -6,11 +6,11 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/21 22:05:31 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/22 10:33:58 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			:= a.out
+NAME			:= webserv
 
 UTILS_DIR		:= utils/
 UTILS_SRCNAME	:= args_handling.cpp
