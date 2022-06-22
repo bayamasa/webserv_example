@@ -18,15 +18,16 @@
 #define SERVER_NAMES 2
 #define ERROR_PAGES 3
 #define LIMIT_CLIENT_BODY_SIZE 4
-#define ROUTES 5
 
 typedef std::vector<std::string>::iterator itr;
 
 class ConfigReader
 {
 private:
-	static const std::string conf_attr[CONFIG_ATTR_MAX];
+	// static const std::string conf_attr[CONFIG_ATTR_MAX];
 	std::map<std::string, bool> conf_attr_decleared;
+	static const int conf_max_num = 5;
+	ConfigConstant conf[ConfigReader::conf_max_num];
 	void set(std::string key, std::string value, Config &config);
 	bool isConfigOption(std::string key);
 	
@@ -42,13 +43,13 @@ public:
 	};
 };
 
-const std::string ConfigReader::conf_attr[CONFIG_ATTR_MAX] = {
-	"host",
-	"port",
-	"server_names",
-	"error_pages",
-	"limit_client_body_size",
-	"routes"
-};
+// const std::string ConfigReader::conf_attr[CONFIG_ATTR_MAX] = {
+// 	"host",
+// 	"port",
+// 	"server_names",
+// 	"error_pages",
+// 	"limit_client_body_size",
+// 	"routes"
+// };
 
 #endif

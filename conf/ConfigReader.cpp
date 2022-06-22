@@ -2,19 +2,11 @@
 
 ConfigReader::ConfigReader()
 {
-	// defineの各パラメータと一致している
-	// std::string config_key[CONFIG_ATTR_MAX] = {
-	// 	"host",
-	// 	"port",
-	// 	"server_names",
-	// 	"error_pages",
-	// 	"limit_client_body_size",
-	// 	"routes"
-	// };
-
-	
-	for (size_t i = 0; i < CONFIG_ATTR_MAX; i++)
-		conf_attr_decleared[conf_attr[i]] = false;
+	conf[HOST] = ConfigConstant("host");
+	conf[PORT] = ConfigConstant("port");
+	conf[SERVER_NAMES] = ConfigConstant("server_names");
+	conf[ERROR_PAGES] = ConfigConstant("error_pages");
+	conf[LIMIT_CLIENT_BODY_SIZE] = ConfigConstant("limit_client_body_size");
 }
 
 ConfigReader::~ConfigReader()
@@ -36,9 +28,9 @@ bool ConfigReader::isConfigOption(std::string key)
 {
 	// std::map<std::string, int>::key_compare comp = conf_attr_enum.key_comp();
 
-	for (int i = 0; i < CONFIG_ATTR_MAX; i++)
+	for (int i = 0; i < conf_max_num; i++)
 	{
-		if (conf_attr[i] == key)
+		if (conf[i].GetValue() == key)
 		{
 			return true;
 		}
@@ -51,17 +43,25 @@ void ConfigReader::set(std::string key, std::string value, Config &config)
 
 	for (int i = 0; i < CONFIG_ATTR_MAX; i++)
 	{
-		if (conf_attr[i] == key)
+		if (conf[i].GetValue() == key)
 		{
 			switch (i)
 			{
-			case HOST:
-				config.SetHost(value);
-				break;
-			case PORT:
-				
-			default:
-				break;
+				case HOST:
+					config.SetHost(value);
+					break;
+				case PORT:
+					config.SetPort(value);
+					break;
+				case SERVER_NAMES:
+					config.SetServerName(value);
+					break;
+				case ERROR_PAGES:
+					config.SetErrorPage(value);
+				case LIMIT_CLIENT_BODY_SIZE:
+					config.SetLimitClientBodySize(value);
+				default:
+					break;
 			}
 		}
 	}
