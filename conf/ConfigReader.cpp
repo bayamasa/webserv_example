@@ -32,12 +32,11 @@ ConfigReader &ConfigReader::operator=(const ConfigReader &other)
 	return *this;
 }
 
-void ConfigReader::Read(std::string &filename, Config &config)
+void ConfigReader::Read(const std::string &filename, Config &config)
 {
 	std::vector<std::string> tmp;
 	std::string line;
 	
-
 	std::ifstream ifs(filename);
 	if (ifs.fail())
 		throw IOException();
@@ -45,13 +44,14 @@ void ConfigReader::Read(std::string &filename, Config &config)
         tmp.push_back(line);
     }
 
-	
-	for (std::vector<std::string>::iterator itr = tmp.begin(), e = tmp.end(); itr != e; ++itr) 
+	for (itr i = tmp.begin(), e = tmp.end(); i != e; ++i) 
 	{
-		std::stringstream ss(*itr);
+		std::stringstream ss(*i);
 		std::string key, value;
 		std::getline(ss, key, ' ');
 		std::getline(ss, value);
+		std::cout << key << std::endl;
+		std::cout << value << std::endl;
 	}
 	
 	(void)config;

@@ -2,6 +2,7 @@
 
 Context::Context()
 {
+	config = Config();
 }
 Context::~Context()
 {
@@ -18,12 +19,21 @@ Context &Context::operator=(const Context &other)
 	return *this;
 }
 
+const std::string &Context::GetFilename() const
+{
+	return filename;
+}
+
 void Context::SetFilename(char const *value)
 {
 	filename = std::string(value);
 }
 
-const std::string &Context::GetFile() const
+Config& Context::GetConfig() {
+	return config;
+}
+
+void Context::SetConfig(Config &value)
 {
-	return filename;
+	config = value;
 }

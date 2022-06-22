@@ -2,10 +2,8 @@
 
 void init(Context &context)
 {
-	ConfigReader *configReader = new ConfigReader();
-	// context.GetFilename();	
-	(void)context;
-	(void)configReader;
+	ConfigReader configReader = ConfigReader();
+	configReader.Read(context.GetFilename(), context.GetConfig());
 }
 
 int main(int argc, char const *argv[])
