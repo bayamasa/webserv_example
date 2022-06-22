@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/22 10:33:58 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/22 10:42:32 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS			:=	main.cpp \
 					$(CONTEXT_SRCS) 
 
 CXX				:= c++
-RM				:= rm -f
+RM				:= rm -rf
 INC				:= -I . \
 					-I ./$(CONF_DIR) \
 					-I ./$(CONTEXT_DIR) \
@@ -56,11 +56,19 @@ $(NAME) : $(OBJS)
 $(OBJS) : $(OBJSDIR)
 
 $(OBJSDIR)%.o : ./%.cpp
-	@if [ ! -e `dirname $@` ]; then mkdir -p `dirname $@`; fi
 	${CXX} ${CXXFLAGS} -c $< -o $@
+
+
+$(OBJSDIR):
+	mkdir -p $(OBJSDIR)
+	mkdir -p $(OBJSDIR)$(CONF_DIR)
+	mkdir -p $(OBJSDIR)$(UTILS_DIR)
+	mkdir -p $(OBJSDIR)$(CONTEXT_DIR)
+	
 
 clean:
 				$(RM) $(OBJS)
+				$(RM) $(OBJSDIR)
 
 fclean:			clean
 				$(RM) $(NAME)
