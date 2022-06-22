@@ -2,19 +2,19 @@
 
 ConfigReader::ConfigReader()
 {
-	std::string config_key[CONFIG_ATTR_MAX] = {
-		"host",
-		"port",
-		"server_names",
-		"error_pages",
-		"limit_client_body_size",
-		"routes"
-	};
+	// defineの各パラメータと一致している
+	// std::string config_key[CONFIG_ATTR_MAX] = {
+	// 	"host",
+	// 	"port",
+	// 	"server_names",
+	// 	"error_pages",
+	// 	"limit_client_body_size",
+	// 	"routes"
+	// };
+
 	
 	for (size_t i = 0; i < CONFIG_ATTR_MAX; i++)
-	{
-		config_attr[config_key[i]] = false;
-	}
+		conf_attr_decleared[conf_attr[i]] = false;
 }
 
 ConfigReader::~ConfigReader()
@@ -30,6 +30,42 @@ ConfigReader &ConfigReader::operator=(const ConfigReader &other)
 	{
 	}
 	return *this;
+}
+
+bool ConfigReader::isConfigOption(std::string key)
+{
+	// std::map<std::string, int>::key_compare comp = conf_attr_enum.key_comp();
+
+	for (int i = 0; i < CONFIG_ATTR_MAX; i++)
+	{
+		if (conf_attr[i] == key)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void ConfigReader::set(std::string key, std::string value, Config &config)
+{
+
+	for (int i = 0; i < CONFIG_ATTR_MAX; i++)
+	{
+		if (conf_attr[i] == key)
+		{
+			switch (i)
+			{
+			case HOST:
+				config.SetHost(value);
+				break;
+			case PORT:
+				
+			default:
+				break;
+			}
+		}
+	}
+	
 }
 
 void ConfigReader::Read(const std::string &filename, Config &config)
@@ -50,11 +86,10 @@ void ConfigReader::Read(const std::string &filename, Config &config)
 		std::string key, value;
 		std::getline(ss, key, ' ');
 		std::getline(ss, value);
-		std::cout << key << std::endl;
-		std::cout << value << std::endl;
+		if (isConfigOption(key))
+			set(key, value, config);
 	}
 	
-	(void)config;
 }
 
 const char *ConfigReader::IOException::what() const throw()

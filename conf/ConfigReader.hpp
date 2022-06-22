@@ -9,18 +9,27 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "Config.hpp"
+#include "conf.hpp"
 
-#define CONFIG_ATTR_MAX 10
+#define CONFIG_ATTR_MAX 6
 #define LINE_MAX_BUFFER 1024
+#define HOST 0
+#define PORT 1
+#define SERVER_NAMES 2
+#define ERROR_PAGES 3
+#define LIMIT_CLIENT_BODY_SIZE 4
+#define ROUTES 5
 
 typedef std::vector<std::string>::iterator itr;
 
 class ConfigReader
 {
 private:
-	// char line[LINE_MAX_BUFFER];
-	std::map<std::string, bool> config_attr;
+	static const std::string conf_attr[CONFIG_ATTR_MAX];
+	std::map<std::string, bool> conf_attr_decleared;
+	void set(std::string key, std::string value, Config &config);
+	bool isConfigOption(std::string key);
+	
 public:
 	ConfigReader();
 	~ConfigReader();
@@ -31,6 +40,15 @@ public:
 	public:
 		const char *what() const throw();
 	};
+};
+
+const std::string ConfigReader::conf_attr[CONFIG_ATTR_MAX] = {
+	"host",
+	"port",
+	"server_names",
+	"error_pages",
+	"limit_client_body_size",
+	"routes"
 };
 
 #endif

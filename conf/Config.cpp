@@ -17,3 +17,28 @@ Config &Config::operator=(const Config &other)
 	}
 	return *this;
 }
+
+void Config::SetHost(std::string value)
+{
+	host = value;
+}
+
+void Config::SetPort(std::string value)
+{
+	port = value;
+}
+
+void Config::SetServerName(std::string value)
+{
+	server_names.push_back(value);
+}
+
+void Config::SetErrorPage(std::string value)
+{
+	error_pages.push_back(value);
+}
+
+void Config::SetLimitClientBodySize(std::string value)
+{
+	limit_client_body_size = value;
+}
