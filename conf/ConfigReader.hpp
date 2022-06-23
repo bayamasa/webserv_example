@@ -24,10 +24,8 @@ typedef std::vector<std::string>::iterator itr;
 class ConfigReader
 {
 private:
-	// static const std::string conf_attr[CONFIG_ATTR_MAX];
-	std::map<std::string, bool> conf_attr_decleared;
 	static const int conf_max_num = 5;
-	ConfigConstant conf[ConfigReader::conf_max_num];
+	ConfigOption _conf_opts[ConfigReader::conf_max_num];
 	void set(std::string key, std::string value, Config &config);
 	bool isConfigOption(std::string key);
 	

@@ -2,7 +2,7 @@
 # define CONF_HPP
 
 #include "Config.hpp"
-#include "ConfigConstant.hpp"
+#include "ConfigOption.hpp"
 #include "ConfigReader.hpp"
 
 #endif

@@ -2,11 +2,11 @@
 
 ConfigReader::ConfigReader()
 {
-	conf[HOST] = ConfigConstant("host");
-	conf[PORT] = ConfigConstant("port");
-	conf[SERVER_NAMES] = ConfigConstant("server_names");
-	conf[ERROR_PAGES] = ConfigConstant("error_pages");
-	conf[LIMIT_CLIENT_BODY_SIZE] = ConfigConstant("limit_client_body_size");
+	_conf_opts[HOST] = ConfigOption("host");
+	_conf_opts[PORT] = ConfigOption("port");
+	_conf_opts[SERVER_NAMES] = ConfigOption("server_names");
+	_conf_opts[ERROR_PAGES] = ConfigOption("error_pages");
+	_conf_opts[LIMIT_CLIENT_BODY_SIZE] = ConfigOption("limit_client_body_size");
 }
 
 ConfigReader::~ConfigReader()
@@ -26,11 +26,9 @@ ConfigReader &ConfigReader::operator=(const ConfigReader &other)
 
 bool ConfigReader::isConfigOption(std::string key)
 {
-	// std::map<std::string, int>::key_compare comp = conf_attr_enum.key_comp();
-
 	for (int i = 0; i < conf_max_num; i++)
 	{
-		if (conf[i].GetValue() == key)
+		if (_conf_opts[i].GetValue() == key)
 		{
 			return true;
 		}
@@ -41,9 +39,9 @@ bool ConfigReader::isConfigOption(std::string key)
 void ConfigReader::set(std::string key, std::string value, Config &config)
 {
 
-	for (int i = 0; i < CONFIG_ATTR_MAX; i++)
+	for (int i = 0; i < conf_max_num; i++)
 	{
-		if (conf[i].GetValue() == key)
+		if (_conf_opts[i].GetValue() == key)
 		{
 			switch (i)
 			{
