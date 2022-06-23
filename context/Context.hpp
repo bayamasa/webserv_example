@@ -2,7 +2,7 @@
 # define CONTEXT_HPP
 
 #include <string>
-#include "../conf/conf.hpp"
+#include "../conf/conf.h"
 
 class Context
 {

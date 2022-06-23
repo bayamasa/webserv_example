@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "utils/utils.hpp"
-#include "conf/conf.hpp"
+#include "conf/conf.h"
 #include "context/Context.hpp"
 
 #endif
