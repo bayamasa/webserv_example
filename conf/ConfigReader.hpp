@@ -9,7 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "conf.hpp"
+#include "conf.h"
 
 #define CONFIG_ATTR_MAX 6
 #define LINE_MAX_BUFFER 1024
@@ -25,9 +25,9 @@ class ConfigReader
 {
 private:
 	static const int conf_max_num = 5;
-	ConfigOption _conf_opts[ConfigReader::conf_max_num];
+	ConfigOptionConstant _conf_opts[ConfigReader::conf_max_num];
 	void set(std::string key, std::string value, Config &config);
-	bool isConfigOption(std::string key);
+	bool isConfigOptionConstant(std::string key);
 	
 public:
 	ConfigReader();

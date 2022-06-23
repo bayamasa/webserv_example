@@ -2,11 +2,11 @@
 
 ConfigReader::ConfigReader()
 {
-	_conf_opts[HOST] = ConfigOption("host");
-	_conf_opts[PORT] = ConfigOption("port");
-	_conf_opts[SERVER_NAMES] = ConfigOption("server_names");
-	_conf_opts[ERROR_PAGES] = ConfigOption("error_pages");
-	_conf_opts[LIMIT_CLIENT_BODY_SIZE] = ConfigOption("limit_client_body_size");
+	_conf_opts[HOST] = ConfigOptionConstant("host");
+	_conf_opts[PORT] = ConfigOptionConstant("port");
+	_conf_opts[SERVER_NAMES] = ConfigOptionConstant("server_names");
+	_conf_opts[ERROR_PAGES] = ConfigOptionConstant("error_pages");
+	_conf_opts[LIMIT_CLIENT_BODY_SIZE] = ConfigOptionConstant("limit_client_body_size");
 }
 
 ConfigReader::~ConfigReader()
@@ -24,11 +24,11 @@ ConfigReader &ConfigReader::operator=(const ConfigReader &other)
 	return *this;
 }
 
-bool ConfigReader::isConfigOption(std::string key)
+bool ConfigReader::isConfigOptionConstant(std::string key)
 {
 	for (int i = 0; i < conf_max_num; i++)
 	{
-		if (_conf_opts[i].GetValue() == key)
+		if (_conf_opts[i].GetName() == key)
 		{
 			return true;
 		}
@@ -41,7 +41,7 @@ void ConfigReader::set(std::string key, std::string value, Config &config)
 
 	for (int i = 0; i < conf_max_num; i++)
 	{
-		if (_conf_opts[i].GetValue() == key)
+		if (_conf_opts[i].GetName() == key)
 		{
 			switch (i)
 			{
@@ -84,7 +84,7 @@ void ConfigReader::Read(const std::string &filename, Config &config)
 		std::string key, value;
 		std::getline(ss, key, ' ');
 		std::getline(ss, value);
-		if (isConfigOption(key))
+		if (isConfigOptionConstant(key))
 			set(key, value, config);
 	}
 	

@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/23 09:54:20 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/23 10:35:10 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ UTILS_SRCNAME	:= args_handling.cpp
 UTILS_SRCS		:= $(addprefix $(UTILS_DIR), $(UTILS_SRCNAME))
 
 CONF_DIR		:= conf/
-CONF_SRCNAME	:= ConfigOption.cpp ConfigReader.cpp Config.cpp 
+CONF_SRCNAME	:= ConfigOptionConstant.cpp ConfigReader.cpp Config.cpp 
 
 CONF_SRCS		:= $(addprefix $(CONF_DIR), $(CONF_SRCNAME))
 
