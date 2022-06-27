@@ -10,8 +10,8 @@ typedef std::vector<std::string> vec_st;
 class Config
 {
 private:
-	std::string _host;
-	std::string _port;
+	unsigned short _host;
+	unsigned int _port;
 	vec_st _server_names;
 	vec_st _error_pages;
 	std::string _limit_client_body_size;
@@ -26,6 +26,8 @@ public:
 	void SetServerName(std::string server_name);
 	void SetErrorPage(std::string error_page);
 	void SetLimitClientBodySize(std::string limit_client_body_size);
+	unsigned short GetHost();
+	unsigned int GetPort();
 };
 
 #endif
