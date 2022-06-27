@@ -201,7 +201,7 @@ int main(void)
 			perror("select");
 			exit(1);
 		}
-		// 新しい接続かどうか
+		// listen fdが存在し続けている場合acceptをする
 		if (FD_ISSET(s, &readfds)) {
 			struct sockaddr_in ca;
 			socklen_t ca_len;

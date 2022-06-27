@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/27 14:10:29 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/27 22:03:53 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,10 @@ SOCKET_DIR		:= socket/
 SOCKET_SRCNAME	:= Socket.cpp
 SOCKET_SRCS		:= $(addprefix $(SOCKET_DIR), $(SOCKET_SRCNAME))
 
+SERVER_DIR		:= server/
+SERVER_SRCNAME	:= Selector.cpp
+SERVER_SRCS		:= $(addprefix $(SERVER_DIR), $(SERVER_SRCNAME))
+
 
 
 SRCS			:=	main.cpp init.cpp event.cpp \
@@ -35,6 +39,7 @@ SRCS			:=	main.cpp init.cpp event.cpp \
 					$(CONF_SRCS) \
 					$(CONTEXT_SRCS) \
 					$(SOCKET_SRCS) \
+					$(SERVER_SRCS) \
 
 CXX				:= c++
 RM				:= rm -rf
@@ -43,6 +48,7 @@ INC				:= -I . \
 					-I ./$(CONTEXT_DIR) \
 					-I ./$(UTILS_DIR) \
 					-I ./$(SOCKET_DIR) \
+					-I ./$(SERVER_DIR) \
 
 CXXFLAGS		:= -Wall -Wextra -Werror -std=c++98 $(INC) -pedantic -Wshadow
 
@@ -69,6 +75,7 @@ $(OBJSDIR):
 	mkdir -p $(OBJSDIR)$(UTILS_DIR)
 	mkdir -p $(OBJSDIR)$(CONTEXT_DIR)
 	mkdir -p $(OBJSDIR)$(SOCKET_DIR)
+	mkdir -p $(OBJSDIR)$(SERVER_DIR)
 	
 
 clean:
