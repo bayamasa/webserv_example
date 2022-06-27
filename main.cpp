@@ -1,12 +1,5 @@
 #include "webserv.hpp"
 
-void init(Context &context)
-{
-	ConfigReader configReader = ConfigReader();
-	configReader.Read(context.GetFilename(), context.GetConfig());
-	
-}
-
 int main(int argc, char const *argv[])
 {
 	Context context;
@@ -21,7 +14,7 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE);
 	}
 	init(context);
-	// loop(context);
+	eventLoop(context);
 	return 0;
 }
 
