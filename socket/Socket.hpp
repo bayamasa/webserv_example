@@ -9,16 +9,16 @@
 class Socket
 {
 private:
-	int _socket_fd;
 	static const int max_queue = 20;
 public:
 	Socket();
 	~Socket();
 	Socket(const Socket &other);
 	Socket &operator=(const Socket &other);
-	void init();
-	void bind(Context &context);
-	void listen();
+	void init(int *sockfd);
+	void bind(int sockfd, Context &context);
+	void listen(int sock_fd);
+	int accept(int sockfd);
 };
 
 #endif
