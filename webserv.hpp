@@ -7,6 +7,7 @@
 #include "utils/utils.hpp"
 #include "conf/conf.h"
 #include "context/Context.hpp"
+#include "socket/Socket.hpp"
 
 void init(Context &context);
 void eventLoop(Context &context);
