@@ -2,5 +2,5 @@
 
 void	eventLoop(Context &context)
 {
-	
+	(void)context;
 }

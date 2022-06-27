@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/23 10:35:10 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/27 14:10:29 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,31 +14,35 @@ NAME			:= webserv
 
 UTILS_DIR		:= utils/
 UTILS_SRCNAME	:= args_handling.cpp
-
 UTILS_SRCS		:= $(addprefix $(UTILS_DIR), $(UTILS_SRCNAME))
 
 CONF_DIR		:= conf/
 CONF_SRCNAME	:= ConfigOptionConstant.cpp ConfigReader.cpp Config.cpp 
-
 CONF_SRCS		:= $(addprefix $(CONF_DIR), $(CONF_SRCNAME))
 
 CONTEXT_DIR		:= context/
 CONTEXT_SRCNAME	:= Context.cpp
-
 CONTEXT_SRCS	:= $(addprefix $(CONTEXT_DIR), $(CONTEXT_SRCNAME))
 
+SOCKET_DIR		:= socket/
+SOCKET_SRCNAME	:= Socket.cpp
+SOCKET_SRCS		:= $(addprefix $(SOCKET_DIR), $(SOCKET_SRCNAME))
 
-SRCS			:=	main.cpp \
+
+
+SRCS			:=	main.cpp init.cpp event.cpp \
 					$(UTILS_SRCS) \
 					$(CONF_SRCS) \
-					$(CONTEXT_SRCS) 
+					$(CONTEXT_SRCS) \
+					$(SOCKET_SRCS) \
 
 CXX				:= c++
 RM				:= rm -rf
 INC				:= -I . \
 					-I ./$(CONF_DIR) \
 					-I ./$(CONTEXT_DIR) \
-					-I ./$(UTILS_DIR)
+					-I ./$(UTILS_DIR) \
+					-I ./$(SOCKET_DIR) \
 
 CXXFLAGS		:= -Wall -Wextra -Werror -std=c++98 $(INC) -pedantic -Wshadow
 
@@ -64,6 +68,7 @@ $(OBJSDIR):
 	mkdir -p $(OBJSDIR)$(CONF_DIR)
 	mkdir -p $(OBJSDIR)$(UTILS_DIR)
 	mkdir -p $(OBJSDIR)$(CONTEXT_DIR)
+	mkdir -p $(OBJSDIR)$(SOCKET_DIR)
 	
 
 clean:
