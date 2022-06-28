@@ -32,8 +32,9 @@ public:
 	void setReadFd(int fd);
 	std::set<int> &readFds();
 	std::set<int> &writeFds();
-	void convertToFDSET();
+	void convertMonitorToFDSET();
 	void deleteUnavailFDs();
+	void updateMaxfds();
 };
 
 #endif

@@ -7,7 +7,7 @@
 void	eventLoop(Context &context)
 {
 	int listen_fd, connected_fd;
-	ssize_t recv_cnt;
+	ssize_t recv_cnt, send_cnt;
 	char *recv_msg[MAX_CONNECTION][BUFF];
 	Socket sock;
 	Selector selector;
@@ -29,13 +29,14 @@ void	eventLoop(Context &context)
 		{
 			if (*it == listen_fd)
 			{
+				// 多分いらないはず
 				if (selector.isSet(listen_fd))
 				{
 					sock.accept(listen_fd, &connected_fd);
 					selector.setReadFd(connected_fd);
 				}
 			}
-			else if  (*it != listen_fd)
+			else if (*it != listen_fd)
 			{
 				//recv
 				recv_cnt = recv(*it, recv_msg[*it], BUFF, 0);
@@ -45,16 +46,26 @@ void	eventLoop(Context &context)
 				{
 					// EOF
 					// EOFになるまでどこかのファイルに書き込み続けてもいいかも
-				}
-				else
-					// 書き込み可能にする
 					selector.writeFds().insert(*it);
+					selector.readFds().erase(*it);
+					shutdown(*it, SHUT_RD);
+					continue;
+				}			
 			}
 		}
 
 		// write
-		
-		
+		it = selector.writeFds().begin();
+		ite = selector.writeFds().end();
+		for (; it != ite; it++)
+		{
+			send_cnt = send(*it, recv_msg[*it], BUFF, 0);
+			if (send_cnt != BUFF)
+				throw std::runtime_error("send error");
+			selector.writeFds().erase(*it);
+			shutdown(*it, SHUT_RDWR);
+			close(*it);
+		}
 
 	}
 }

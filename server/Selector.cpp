@@ -55,9 +55,29 @@ void Selector::deleteUnavailFDs()
 	}
 }
 
+void Selector::updateMaxfds()
+{
+	int maxfd;
+
+	it it = _read_fds_monitor.begin();
+	ite ite = _read_fds_monitor.end();
+	for (; it != ite; it++)
+	{
+		maxfd = std::max(maxfd, *it);
+	}
+	it = _write_fds_monitor.begin();
+	ite = _write_fds_monitor.end();
+	for (; it != ite; it++)
+	{
+		maxfd = std::max(maxfd, *it);
+	}
+	_maxfd = maxfd;
+}
+
 void Selector::select() 
 {
-	convertToFDSET();
+	convertMonitorToFDSET();
+	updateMaxfds();
 	if (::select(_maxfd + 1, &_readfds_avail, &_writefds_avail, NULL, &_time) < 0)
 		throw std::runtime_error("select error");
 	deleteUnavailFDs();
@@ -81,7 +101,7 @@ std::set<int> &Selector::writeFds() {
 	return _write_fds_monitor;
 }
 
-void Selector::convertToFDSET() {
+void Selector::convertMonitorToFDSET() {
 	// read fd
 	it it = _read_fds_monitor.begin();
 	ite ite = _read_fds_monitor.end();
