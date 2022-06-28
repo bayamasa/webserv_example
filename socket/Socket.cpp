@@ -45,11 +45,9 @@ void Socket::listen(int sock_fd)
 		throw std::runtime_error("listen error");
 }
 
-int Socket::accept(int sockfd)
+void Socket::accept(int sockfd, int *connected_fd)
 {
-	int connected_sockfd;
-	if ((connected_sockfd = ::accept(sockfd, NULL, NULL)) == -1) {
+	if ((*connected_fd = ::accept(sockfd, NULL, NULL)) == -1) {
 		throw std::runtime_error("accept error");
 	}
-	return connected_sockfd;
 }

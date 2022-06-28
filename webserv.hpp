@@ -8,6 +8,7 @@
 #include "conf/conf.h"
 #include "context/Context.hpp"
 #include "socket/Socket.hpp"
+#include "server/server.h"
 
 void init(Context &context);
 void eventLoop(Context &context);

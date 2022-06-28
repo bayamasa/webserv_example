@@ -18,7 +18,7 @@ public:
 	void init(int *sockfd);
 	void bind(int sockfd, Context &context);
 	void listen(int sock_fd);
-	int accept(int sockfd);
+	void accept(int sockfd, int *connected_fd);
 };
 
 #endif
