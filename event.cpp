@@ -20,29 +20,35 @@ void	eventLoop(Context &context)
 	for (;;)
 	{
 		selector.init(listen_fd);
-		selector.updateFds();
-		if (selector.isSet(listen_fd))
-		{
-			sock.accept(listen_fd, &connected_fd);
-			selector.setReadFd(connected_fd);
-		}
+		selector.select();
+		
 		// read
-		Selector::it it = selector.GetMonitoringReadFds().begin();
-		Selector::ite ite = selector.GetMonitoringReadFds().end();
+		Selector::it it = selector.readFds().begin();
+		Selector::ite ite = selector.readFds().end();
 		for (; it != ite; it++)
 		{
-			if (*it != listen_fd)
+			if (*it == listen_fd)
+			{
+				if (selector.isSet(listen_fd))
+				{
+					sock.accept(listen_fd, &connected_fd);
+					selector.setReadFd(connected_fd);
+				}
+			}
+			else if  (*it != listen_fd)
 			{
 				//recv
 				recv_cnt = recv(*it, recv_msg[*it], BUFF, 0);
 				if (recv_cnt == -1)
 					throw std::runtime_error("recv error");
 				else if (recv_cnt == 0)
+				{
 					// EOF
 					// EOFになるまでどこかのファイルに書き込み続けてもいいかも
+				}
 				else
 					// 書き込み可能にする
-					selector.GetMonitoringWriteFds().insert(*it);
+					selector.writeFds().insert(*it);
 			}
 		}
 
