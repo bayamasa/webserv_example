@@ -11,7 +11,6 @@ class Selector
 {
 private:
 	int _maxfd;
-	int _listen_fd;
 	fd_set _readfds;
 	fd_set _writefds;
 	
@@ -20,14 +19,18 @@ private:
 	std::set<int> _monitoring_read_fds;
 	std::set<int> _monitoring_write_fds;
 public:
+	typedef std::set<int>::iterator it;
+    typedef std::set<int>::iterator ite;
 	Selector();
 	~Selector();
 	Selector(const Selector &other);
 	Selector &operator=(const Selector &other);
 	void init(int sock_fd);
 	void updateFds();
-	bool isListenFdReady();
+	bool isSet(int fd);
 	void setReadFd(int fd);
+	std::set<int> &GetMonitoringReadFds();
+	std::set<int> &GetMonitoringWriteFds();
 };
 
 #endif
