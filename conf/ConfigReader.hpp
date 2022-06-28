@@ -25,6 +25,7 @@ class ConfigReader
 {
 private:
 	static const int conf_max_num = 5;
+	ConfigOptionConstant hi;
 	ConfigOptionConstant _conf_opts[ConfigReader::conf_max_num];
 	void set(std::string key, std::string value, Config &config);
 	bool isConfigOptionConstant(std::string key);

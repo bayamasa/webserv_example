@@ -2,6 +2,7 @@
 # define ConfigOptionConstant_HPP
 
 #include <string>
+#include <iostream>
 
 class ConfigOptionConstant
 {
@@ -15,7 +16,7 @@ public:
 	~ConfigOptionConstant();
 	ConfigOptionConstant(const ConfigOptionConstant &other);
 	ConfigOptionConstant &operator=(const ConfigOptionConstant &other);
-	std::string GetName();
+	std::string GetName() const;
 };
 
 #endif
