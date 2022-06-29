@@ -9,7 +9,6 @@ ConfigReader::ConfigReader()
 	_conf_opts[LIMIT_CLIENT_BODY_SIZE] = ConfigOptionConstant("limit_client_body_size");
 }
 
-
 ConfigReader::~ConfigReader()
 {
 }
@@ -27,10 +26,8 @@ ConfigReader &ConfigReader::operator=(const ConfigReader &other)
 
 bool ConfigReader::isConfigOptionConstant(std::string key)
 {
-	// std::cout << key << std::endl;
 	for (int i = 0; i < conf_max_num; i++)
 	{
-		// std::cout << _conf_opts[i].GetName() << std::endl;
 		if (_conf_opts[i].GetName() == key)
 		{
 			return true;
@@ -49,11 +46,9 @@ void ConfigReader::set(std::string key, std::string value, Config &config)
 			switch (i)
 			{
 				case HOST:
-					std::cout << "host set" << std::endl;
 					config.SetHost(value);
 					break;
 				case PORT:
-					std::cout << "port set" << std::endl;
 					config.SetPort(value);
 					break;
 				case SERVER_NAMES:
@@ -68,7 +63,6 @@ void ConfigReader::set(std::string key, std::string value, Config &config)
 			}
 		}
 	}
-	
 }
 
 void ConfigReader::Read(const std::string &filename, Config &config)
@@ -92,7 +86,6 @@ void ConfigReader::Read(const std::string &filename, Config &config)
 		if (isConfigOptionConstant(key))
 			set(key, value, config);
 	}
-	
 }
 
 const char *ConfigReader::IOException::what() const throw()

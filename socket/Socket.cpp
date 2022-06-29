@@ -33,7 +33,7 @@ void Socket::bind(int sock_fd, Context &context)
 	std::memset(&sa, 0, sizeof(sa));
 	sa.sin_len = sizeof(sa);
 	sa.sin_port = htons(context.GetConfig().GetPort());
-	sa.sin_addr.s_addr = htonl(context.GetConfig().GetHost());
+	sa.sin_addr.s_addr = inet_addr(context.GetConfig().GetHost().c_str());
 	
 	if (::bind(sock_fd, (struct sockaddr *)&sa, sizeof(sa)) == -1)
 		throw std::runtime_error("bind error");

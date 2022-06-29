@@ -18,9 +18,9 @@ Config &Config::operator=(const Config &other)
 	return *this;
 }
 
-void Config::SetHost(std::string host)
+void Config::SetHost(std::string &host)
 {
-	_host = stoul(host);
+	_host = host.c_str();
 }
 
 void Config::SetPort(std::string port)
@@ -43,7 +43,7 @@ void Config::SetLimitClientBodySize(std::string limit_client_body_size)
 	_limit_client_body_size = limit_client_body_size;
 }
 
-unsigned short Config::GetHost()
+std::string Config::GetHost()
 {
 	return _host;
 }

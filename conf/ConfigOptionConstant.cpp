@@ -9,8 +9,8 @@ ConfigOptionConstant::ConfigOptionConstant(std::string v)
 	_name = v;
 	_declared = false;
 	_required = false;
-	std::cout << _name << std::endl;
 }
+
 ConfigOptionConstant::~ConfigOptionConstant()
 {
 }
