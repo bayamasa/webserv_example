@@ -50,7 +50,6 @@ void	eventLoop(Context &context)
 						throw std::runtime_error("recv error");
 					else if (recv_cnt == 0)
 					{
-						// EOF
 						// EOFになるまでどこかのファイルに書き込み続けてもいいかも
 						std::cout << "writeFd add: " << *it << std::endl;
 						selector.writeFds().insert(*it);
@@ -58,6 +57,7 @@ void	eventLoop(Context &context)
 						shutdown(*it, SHUT_RD);
 						continue;
 					}
+					selector.writeFds().insert(*it);
 				}
 			}
 		}
@@ -65,12 +65,12 @@ void	eventLoop(Context &context)
 		// write
 		it = selector.writeFds().begin();
 		ite = selector.writeFds().end();
-		for (; it != ite; it++)
+		while (it != ite)
 		{
 			send_cnt = send(*it, recv_msg[*it], BUFF, 0);
 			if (send_cnt != BUFF)
 				throw std::runtime_error("send error");
-			selector.writeFds().erase(*it);
+			it = selector.writeFds().erase(it);
 			shutdown(*it, SHUT_RDWR);
 			close(*it);
 		}

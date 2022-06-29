@@ -46,13 +46,13 @@ void Selector::deleteUnavailFDs()
 	}
 	it = _write_fds_monitor.begin();
 	ite = _write_fds_monitor.end();
-	for (; it != ite; it++)
+	while (it != ite)
 	{
-		if (!FD_ISSET(*it, &_writefds_avail))
+		if (!FD_ISSET(*it, &_readfds_avail))
 		{
 			std::cout << "delete write_fd " << *it << std::endl;
-			_write_fds_monitor.erase(*it);
-		}
+			it = _write_fds_monitor.erase(it);
+		} else ++it;
 	}
 }
 
@@ -84,8 +84,7 @@ void Selector::select()
 		perror("select: ");
 		throw std::runtime_error("select error");
 	}
-		
-	deleteUnavailFDs();
+	// deleteUnavailFDs();
 }
 
 bool Selector::isSet(int fd)
