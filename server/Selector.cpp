@@ -26,6 +26,7 @@ void Selector::init(int listen_fd)
 	FD_ZERO(&_writefds_avail);
 
 	// FD_SET(listen_fd, &_readfds_avail);
+	std::cout << "listen_fd: " << listen_fd << std::endl;
 	_read_fds_monitor.insert(listen_fd);
 	_time.tv_sec = timeout_sec;
 	_time.tv_usec = 0;
@@ -33,6 +34,7 @@ void Selector::init(int listen_fd)
 
 void Selector::deleteUnavailFDs()
 {
+	std::cout << "kita" << std::endl;
 	it it = _read_fds_monitor.begin();
 	ite ite = _read_fds_monitor.end();
 	for (; it != ite; it++)
@@ -57,29 +59,33 @@ void Selector::deleteUnavailFDs()
 
 void Selector::updateMaxfds()
 {
-	int maxfd;
-
 	it it = _read_fds_monitor.begin();
 	ite ite = _read_fds_monitor.end();
 	for (; it != ite; it++)
 	{
-		maxfd = std::max(maxfd, *it);
+		std::cout << "*it: " << *it << std::endl;
+		_maxfd = std::max(_maxfd, *it);
 	}
 	it = _write_fds_monitor.begin();
 	ite = _write_fds_monitor.end();
 	for (; it != ite; it++)
 	{
-		maxfd = std::max(maxfd, *it);
+		std::cout << "*it: " << *it << std::endl;
+		_maxfd = std::max(_maxfd, *it);
 	}
-	_maxfd = maxfd;
 }
 
 void Selector::select() 
 {
 	convertMonitorToFDSET();
 	updateMaxfds();
-	if (::select(_maxfd + 1, &_readfds_avail, &_writefds_avail, NULL, &_time) < 0)
+	std::cout << "_maxfd: " << _maxfd << std::endl;
+	if (::select(_maxfd + 1, &_readfds_avail, &_writefds_avail, NULL, NULL) < 0)
+	{
+		perror("select: ");
 		throw std::runtime_error("select error");
+	}
+		
 	deleteUnavailFDs();
 }
 
