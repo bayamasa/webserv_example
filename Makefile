@@ -6,7 +6,7 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/27 22:03:53 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/29 10:08:29 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SERVER_SRCNAME	:= Selector.cpp
 SERVER_SRCS		:= $(addprefix $(SERVER_DIR), $(SERVER_SRCNAME))
 
 
-
 SRCS			:=	main.cpp init.cpp event.cpp \
 					$(UTILS_SRCS) \
 					$(CONF_SRCS) \
@@ -51,6 +50,7 @@ INC				:= -I . \
 					-I ./$(SERVER_DIR) \
 
 CXXFLAGS		:= -Wall -Wextra -Werror -std=c++98 $(INC) -pedantic -Wshadow
+DEBUG			:= -fsanitize=address
 
 
 OBJSDIR	:= ./obj/
@@ -86,5 +86,9 @@ fclean:			clean
 				$(RM) $(NAME)
 
 re:				fclean $(NAME)
+
+.PHONY: debug
+debug:			CXXFLAGS += $(DEBUG)
+debug:			re
 
 .PHONY:			all clean fclean re
