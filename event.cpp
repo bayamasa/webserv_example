@@ -16,7 +16,6 @@ void	eventLoop(Context &context)
 	sock.bind(listen_fd, context);
 	sock.listen(listen_fd);
 	
-	
 	for (;;)
 	{
 		selector.init(listen_fd);
@@ -33,24 +32,33 @@ void	eventLoop(Context &context)
 				if (selector.isSet(listen_fd))
 				{
 					sock.accept(listen_fd, &connected_fd);
+					// iteratorのループの内部で要素が追加された場合、その要素を含めたループが回る
 					selector.setReadFd(connected_fd);
+					std::cout << "set connected fd: " << connected_fd << std::endl;
 				}
 			}
 			else if (*it != listen_fd)
 			{
-				//recv
-				recv_cnt = recv(*it, recv_msg[*it], BUFF, 0);
-				if (recv_cnt == -1)
-					throw std::runtime_error("recv error");
-				else if (recv_cnt == 0)
+				// TODO:後でselectorとわける
+				if (selector.isSet(*it))
 				{
-					// EOF
-					// EOFになるまでどこかのファイルに書き込み続けてもいいかも
-					selector.writeFds().insert(*it);
-					selector.readFds().erase(*it);
-					shutdown(*it, SHUT_RD);
-					continue;
-				}			
+					//recv
+					std::cout << "recv it: " << *it << std::endl;
+					recv_cnt = recv(*it, recv_msg[*it], BUFF, 0);
+					std::cout << recv_msg[*it] << std::endl;
+					if (recv_cnt == -1)
+						throw std::runtime_error("recv error");
+					else if (recv_cnt == 0)
+					{
+						// EOF
+						// EOFになるまでどこかのファイルに書き込み続けてもいいかも
+						std::cout << "writeFd add: " << *it << std::endl;
+						selector.writeFds().insert(*it);
+						// selector.readFds().erase(*it);
+						shutdown(*it, SHUT_RD);
+						continue;
+					}
+				}
 			}
 		}
 

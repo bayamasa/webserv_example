@@ -34,16 +34,15 @@ void Selector::init(int listen_fd)
 
 void Selector::deleteUnavailFDs()
 {
-	std::cout << "kita" << std::endl;
 	it it = _read_fds_monitor.begin();
 	ite ite = _read_fds_monitor.end();
-	for (; it != ite; it++)
+	while (it != ite)
 	{
 		if (!FD_ISSET(*it, &_readfds_avail))
 		{
 			std::cout << "delete read_fd " << *it << std::endl;
-			_read_fds_monitor.erase(*it);
-		}
+			it = _read_fds_monitor.erase(it);
+		} else ++it;
 	}
 	it = _write_fds_monitor.begin();
 	ite = _write_fds_monitor.end();
@@ -63,14 +62,14 @@ void Selector::updateMaxfds()
 	ite ite = _read_fds_monitor.end();
 	for (; it != ite; it++)
 	{
-		std::cout << "*it: " << *it << std::endl;
+		std::cout << "update read *it: " << *it << std::endl;
 		_maxfd = std::max(_maxfd, *it);
 	}
 	it = _write_fds_monitor.begin();
 	ite = _write_fds_monitor.end();
 	for (; it != ite; it++)
 	{
-		std::cout << "*it: " << *it << std::endl;
+		std::cout << "update write *it: " << *it << std::endl;
 		_maxfd = std::max(_maxfd, *it);
 	}
 }
