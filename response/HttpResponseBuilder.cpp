@@ -3,6 +3,13 @@
 HttpResponseBuilder::HttpResponseBuilder()
 {
 }
+
+HttpResponseBuilder::HttpResponseBuilder(Config conf, HttpRequestData data)
+{
+	_conf = conf;
+	_data = data;
+}
+
 HttpResponseBuilder::~HttpResponseBuilder()
 {
 }

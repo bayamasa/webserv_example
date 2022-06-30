@@ -6,13 +6,13 @@
 #    By: mhirabay <mhirabay@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 18:47:47 by mhirabay          #+#    #+#              #
-#    Updated: 2022/06/30 16:58:50 by mhirabay         ###   ########.fr        #
+#    Updated: 2022/06/30 18:16:12 by mhirabay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			:= a.out
 
-SRCS			:=	main.cpp 
+SRCS			:=	main.cpp Config.cpp HttpRequestData.cpp HttpResponse.cpp HttpResponseBuilder.cpp
 
 CXX				:= c++
 RM				:= rm -rf
