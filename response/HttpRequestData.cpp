@@ -4,10 +4,10 @@ HttpRequestData::HttpRequestData(){}
 
 HttpRequestData::HttpRequestData(std::string method, std::string path, std::string file, bool is_index)
 {
-	_method = method;
-	_path = path;
-	_file = file;
-	_is_index = is_index;
+	method_ = method;
+	path_ = path;
+	file_ = file;
+	is_index_ = is_index;
 }
 
 HttpRequestData::~HttpRequestData()

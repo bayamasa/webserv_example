@@ -3,9 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 struct LocationConfig {
-  std::string uri_;
+  std::string location_;
 
   // Define a HTTP redirection.
   std::string root_;
@@ -27,20 +28,17 @@ struct LocationConfig {
 class ConfigDTO
 {
 private:
-	std::string _location;
-	std::string _root;
-	std::string _index;
+	std::map<int, std::string> error_pages_;
+	std::string root_;
+	std::vector<LocationConfig> locations_;
 public:
-	LocationConfig _location_conf;
 	ConfigDTO();
-	ConfigDTO(std::string location, std::string _root, std::string _index);
 	~ConfigDTO();
 	ConfigDTO(const ConfigDTO &other);
 	ConfigDTO &operator=(const ConfigDTO &other);
-	void buildLocationConfDemo();
-	const std::string &GetLocation() const;
-	const std::string &GetRoot() const;
-	const std::string &GetIndex() const;
+	void buildDemoConf();
+	std::vector<LocationConfig> &GetLocation();
+	// const std::string &GetRoot() const;
 };
 
 #endif

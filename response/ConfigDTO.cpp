@@ -2,14 +2,7 @@
 
 ConfigDTO::ConfigDTO()
 {
-}
-
-ConfigDTO::ConfigDTO(std::string location, std::string root, std::string index)
-{
-	_location = location;
-	_root = root;
-	_index = index;
-	buildLocationConfDemo();
+	buildDemoConf();
 }
 
 ConfigDTO::~ConfigDTO()
@@ -27,26 +20,17 @@ ConfigDTO &ConfigDTO::operator=(const ConfigDTO &other)
 	return *this;
 }
 
-const std::string &ConfigDTO::GetLocation() const
+std::vector<LocationConfig> &ConfigDTO::GetLocation()
 {
-	return _location_conf.uri_;
+	return locations_;
 }
 
-const std::string &ConfigDTO::GetRoot() const
+void ConfigDTO::buildDemoConf()
 {
-	return _root;
-}
-
-const std::string &ConfigDTO::GetIndex() const
-{
-	return _index;
-}
-
-void ConfigDTO::buildLocationConfDemo()
-{
-	_location_conf.uri_ = "/";
-	_location_conf.autoindex_ = true;
-	_location_conf.root_ = std::string("html");
-	_location_conf.allowed_methods_.push_back(std::string("GET"));
-	_location_conf.indexes_.push_back(std::string("index.html"));
+	locations_.at(0).location_ = "/";
+	locations_.at(0).root_ = "/html";
+	locations_.at(0).allowed_methods_.push_back("GET");
+	locations_.at(0).autoindex_ = true;
+	locations_.at(0).indexes_.push_back("index.html");
+	locations_.at(0).cgi_path_ = std::string();
 }

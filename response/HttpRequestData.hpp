@@ -6,10 +6,10 @@
 class HttpRequestData
 {
 private:
-	std::string _method;
-	std::string _path;
-	std::string _file;
-	bool        _is_index;
+	std::string method_;
+	std::string path_;
+	std::string file_;
+	bool        is_index_;
 public:	
 	HttpRequestData();
 	HttpRequestData(std::string method, std::string path, std::string file, bool is_index);

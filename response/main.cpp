@@ -8,7 +8,8 @@ int main(int argc, char const *argv[])
 	std::string location = "/";
 	std::string root = "html";
 	std::string index = "index.html";
-	ConfigDTO conf = ConfigDTO(location, root, index);
+	ConfigDTO conf = ConfigDTO();
+	conf.buildDemoConf();
 	
 	//http request data
 	std::string method = "GET";

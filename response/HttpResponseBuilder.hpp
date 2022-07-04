@@ -9,8 +9,7 @@
 class HttpResponseBuilder
 {
 private:
-	std::vector<ConfigDTO> _conf;
-	typedef std::vector<ConfigDTO>::iterator itr;
+	ConfigDTO conf_;
 public:
 	HttpResponseBuilder();
 	HttpResponseBuilder(ConfigDTO conf);
@@ -18,6 +17,7 @@ public:
 	HttpResponseBuilder(const HttpResponseBuilder &other);
 	HttpResponseBuilder &operator=(const HttpResponseBuilder &other);
 	HttpResponse &build(HttpRequestData req);
+	std::string findFile(std::string filename);
 };
 
 #endif

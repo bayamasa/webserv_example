@@ -6,7 +6,7 @@ HttpResponseBuilder::HttpResponseBuilder()
 
 HttpResponseBuilder::HttpResponseBuilder(ConfigDTO conf)
 {
-	_conf.push_back(conf);
+	conf_ = conf;
 }
 
 HttpResponseBuilder::~HttpResponseBuilder()
@@ -24,15 +24,30 @@ HttpResponseBuilder &HttpResponseBuilder::operator=(const HttpResponseBuilder &o
 	return *this;
 }
 
+
+
 HttpResponse &HttpResponseBuilder::build(HttpRequestData req)
 {
-	itr i = _conf.begin();
-	itr ie = _conf.end();
+	
+	std::vector<LocationConfig>::iterator i = conf_.GetLocation().begin();
+	std::vector<LocationConfig>::iterator ie = conf_.GetLocation().end();
+	
 	for (; i != ie; i++)
 	{
-		// if ((*i).GetLocation() == req.GetPath())
-		// {
-		// 	std::string dir = find_dir();
-		// }
+		(void)req;
+		if ((*i).location_ == req.GetPath())
+		{
+			try
+			{
+				std::string dir = findFile();
+			}
+			catch(const std::exception& e)
+			{
+				std::cerr << e.what() << '\n';
+			}
+			
+			
+		}
 	}
+	return HttpResponse();
 }
