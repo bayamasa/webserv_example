@@ -2,7 +2,7 @@
 
 Context::Context()
 {
-	config = Config();
+	config = ConfigDTO();
 }
 Context::~Context()
 {
@@ -29,11 +29,11 @@ void Context::SetFilename(char const *value)
 	filename = std::string(value);
 }
 
-Config& Context::GetConfig() {
+ConfigDTO& Context::GetConfig() {
 	return config;
 }
 
-void Context::SetConfig(Config &value)
+void Context::SetConfig(ConfigDTO &value)
 {
 	config = value;
 }

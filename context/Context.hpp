@@ -10,7 +10,7 @@ private:
 	std::string filename;
 	// configの値は初期値から変化しないのでスタック領域
 	// めちゃめちゃでかいデータ入れられる可能性があったら変える
-	Config config;
+	ConfigDTO config;
 public:
 	Context();
 	~Context();
@@ -18,8 +18,8 @@ public:
 	Context &operator=(const Context &other);
 	const std::string &GetFilename() const;
 	void SetFilename(char const *value);
-	Config& GetConfig();
-	void SetConfig(Config &value);
+	ConfigDTO& GetConfig();
+	void SetConfig(ConfigDTO &value);
 };
 
 #endif

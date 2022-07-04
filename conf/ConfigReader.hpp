@@ -27,7 +27,7 @@ private:
 	static const int conf_max_num = 5;
 	ConfigOptionConstant hi;
 	ConfigOptionConstant _conf_opts[ConfigReader::conf_max_num];
-	void set(std::string key, std::string value, Config &config);
+	void set(std::string key, std::string value, ConfigDTO &config);
 	bool isConfigOptionConstant(std::string key);
 	
 public:
@@ -35,7 +35,7 @@ public:
 	~ConfigReader();
 	ConfigReader(const ConfigReader &other);
 	ConfigReader &operator=(const ConfigReader &other);
-	void Read(const std::string &filename, Config &config);
+	void Read(const std::string &filename, ConfigDTO &config);
 	class IOException : public std::exception {
 	public:
 		const char *what() const throw();

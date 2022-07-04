@@ -2,7 +2,7 @@
 # define RESPONSE_H
 
 #include "HttpResponse.hpp"
-#include "Config.hpp"
+#include "ConfigDTO.hpp"
 #include "HttpRequestData.hpp"
 #include "HttpResponseBuilder.hpp"
 

@@ -36,7 +36,7 @@ bool ConfigReader::isConfigOptionConstant(std::string key)
 	return false;
 }
 
-void ConfigReader::set(std::string key, std::string value, Config &config)
+void ConfigReader::set(std::string key, std::string value, ConfigDTO &config)
 {
 
 	for (int i = 0; i < conf_max_num; i++)
@@ -65,7 +65,7 @@ void ConfigReader::set(std::string key, std::string value, Config &config)
 	}
 }
 
-void ConfigReader::Read(const std::string &filename, Config &config)
+void ConfigReader::Read(const std::string &filename, ConfigDTO &config)
 {
 	std::vector<std::string> tmp;
 	std::string line;

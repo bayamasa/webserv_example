@@ -8,7 +8,7 @@
 
 typedef std::vector<std::string> vec_st;
 
-class Config
+class ConfigDTO
 {
 private:
 	std::string _host;
@@ -18,10 +18,10 @@ private:
 	std::string _limit_client_body_size;
 	// Routes routes;
 public:
-	Config();
-	~Config();
-	Config(const Config &other);
-	Config &operator=(const Config &other);
+	ConfigDTO();
+	~ConfigDTO();
+	ConfigDTO(const ConfigDTO &other);
+	ConfigDTO &operator=(const ConfigDTO &other);
 	void SetHost(std::string &host);
 	void SetPort(std::string port);
 	void SetServerName(std::string server_name);

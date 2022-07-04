@@ -1,16 +1,16 @@
 #include "Config.hpp"
 
-Config::Config()
+ConfigDTO::ConfigDTO()
 {
 }
-Config::~Config()
+ConfigDTO::~ConfigDTO()
 {
 }
-Config::Config(const Config &other)
+ConfigDTO::ConfigDTO(const ConfigDTO &other)
 {
 	*this = other;
 }
-Config &Config::operator=(const Config &other)
+ConfigDTO &ConfigDTO::operator=(const ConfigDTO &other)
 {
 	if (this != &other)
 	{
@@ -18,37 +18,37 @@ Config &Config::operator=(const Config &other)
 	return *this;
 }
 
-void Config::SetHost(std::string &host)
+void ConfigDTO::SetHost(std::string &host)
 {
 	_host = host.c_str();
 }
 
-void Config::SetPort(std::string port)
+void ConfigDTO::SetPort(std::string port)
 {
 	_port = stoul(port);
 }
 
-void Config::SetServerName(std::string server_name)
+void ConfigDTO::SetServerName(std::string server_name)
 {
 	_server_names.push_back(server_name);
 }
 
-void Config::SetErrorPage(std::string error_page)
+void ConfigDTO::SetErrorPage(std::string error_page)
 {
 	_error_pages.push_back(error_page);
 }
 
-void Config::SetLimitClientBodySize(std::string limit_client_body_size)
+void ConfigDTO::SetLimitClientBodySize(std::string limit_client_body_size)
 {
 	_limit_client_body_size = limit_client_body_size;
 }
 
-std::string Config::GetHost()
+std::string ConfigDTO::GetHost()
 {
 	return _host;
 }
 
-unsigned int Config::GetPort()
+unsigned int ConfigDTO::GetPort()
 {
 	return _port;
 }
