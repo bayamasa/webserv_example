@@ -4,10 +4,9 @@ HttpResponseBuilder::HttpResponseBuilder()
 {
 }
 
-HttpResponseBuilder::HttpResponseBuilder(Config conf, HttpRequestData data)
+HttpResponseBuilder::HttpResponseBuilder(Config conf)
 {
-	_conf = conf;
-	_req_data = data;
+	_conf.push_back(conf);
 }
 
 HttpResponseBuilder::~HttpResponseBuilder()
@@ -23,4 +22,17 @@ HttpResponseBuilder &HttpResponseBuilder::operator=(const HttpResponseBuilder &o
 	{
 	}
 	return *this;
+}
+
+HttpResponse &HttpResponseBuilder::build(HttpRequestData req)
+{
+	itr i = _conf.begin();
+	itr ie = _conf.end();
+	for (; i != ie; i++)
+	{
+		if ((*i).GetLocation() == req.GetPath())
+		{
+			std::string dir = find_dir()
+		}
+	}
 }

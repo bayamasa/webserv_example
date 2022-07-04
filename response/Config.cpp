@@ -25,3 +25,18 @@ Config &Config::operator=(const Config &other)
 	}
 	return *this;
 }
+
+const std::string &Config::GetLocation() const
+{
+	return _location;
+}
+
+const std::string &Config::GetRoot() const
+{
+	return _root;
+}
+
+const std::string &Config::GetIndex() const
+{
+	return _index;
+}

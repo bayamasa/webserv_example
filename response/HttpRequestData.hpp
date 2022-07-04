@@ -16,6 +16,7 @@ public:
 	~HttpRequestData();
 	HttpRequestData(const HttpRequestData &other);
 	HttpRequestData &operator=(const HttpRequestData &other);
+	const std::string &GetPath() const;
 };
 
 #endif

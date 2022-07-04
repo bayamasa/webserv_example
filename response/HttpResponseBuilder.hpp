@@ -3,18 +3,21 @@
 
 #include "Config.hpp"
 #include "HttpRequestData.hpp"
+#include "HttpResponse.hpp"
+#include <vector>
 
 class HttpResponseBuilder
 {
 private:
-	Config _conf;
-	HttpRequestData _req_data;
+	std::vector<Config> _conf;
+	typedef std::vector<Config>::iterator itr;
 public:
 	HttpResponseBuilder();
-	HttpResponseBuilder(Config conf, HttpRequestData req_data);
+	HttpResponseBuilder(Config conf);
 	~HttpResponseBuilder();
 	HttpResponseBuilder(const HttpResponseBuilder &other);
 	HttpResponseBuilder &operator=(const HttpResponseBuilder &other);
+	HttpResponse &build(HttpRequestData req);
 };
 
 #endif

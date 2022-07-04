@@ -15,6 +15,9 @@ public:
 	~Config();
 	Config(const Config &other);
 	Config &operator=(const Config &other);
+	const std::string &GetLocation() const;
+	const std::string &GetRoot() const;
+	const std::string &GetIndex() const;
 };
 
 #endif
