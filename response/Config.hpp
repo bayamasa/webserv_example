@@ -6,10 +6,12 @@
 class Config
 {
 private:
-	
+	std::string _location;
+	std::string _root;
+	std::string _index;
 public:
-	std::string location;
 	Config();
+	Config(std::string location, std::string _root, std::string _index);
 	~Config();
 	Config(const Config &other);
 	Config &operator=(const Config &other);

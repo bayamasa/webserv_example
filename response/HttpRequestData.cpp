@@ -1,10 +1,15 @@
 #include "HttpRequestData.hpp"
 
-HttpRequestData::HttpRequestData()
+HttpRequestData::HttpRequestData(){}
+
+HttpRequestData::HttpRequestData(std::string method, std::string path, std::string file, bool is_index)
 {
-	_method = "GET";
-	_url = "/index";
+	_method = method;
+	_path = path;
+	_file = file;
+	_is_index = is_index;
 }
+
 HttpRequestData::~HttpRequestData()
 {
 }

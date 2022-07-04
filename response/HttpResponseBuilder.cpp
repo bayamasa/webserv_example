@@ -7,7 +7,7 @@ HttpResponseBuilder::HttpResponseBuilder()
 HttpResponseBuilder::HttpResponseBuilder(Config conf, HttpRequestData data)
 {
 	_conf = conf;
-	_data = data;
+	_req_data = data;
 }
 
 HttpResponseBuilder::~HttpResponseBuilder()

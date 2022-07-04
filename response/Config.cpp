@@ -3,6 +3,14 @@
 Config::Config()
 {
 }
+
+Config::Config(std::string location, std::string root, std::string index)
+{
+	_location = location;
+	_root = root;
+	_index = index;
+}
+
 Config::~Config()
 {
 }

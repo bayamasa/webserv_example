@@ -6,11 +6,13 @@
 class HttpRequestData
 {
 private:
-
-public:
 	std::string _method;
-	std::string _url;
+	std::string _path;
+	std::string _file;
+	bool        _is_index;
+public:	
 	HttpRequestData();
+	HttpRequestData(std::string method, std::string path, std::string file, bool is_index);
 	~HttpRequestData();
 	HttpRequestData(const HttpRequestData &other);
 	HttpRequestData &operator=(const HttpRequestData &other);
