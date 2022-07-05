@@ -7,14 +7,19 @@
 class HttpResponse
 {
 private:
-	// string最大文字数は4611686018427387897
-	// https://cpprefjp.github.io/reference/string/basic_string/max_size.html
-	// なので一旦エラーハンドリングとかはなしで。
-	std::string response_;
-	std::size_t response_size_;
+	// 後ほど各項目に分ける
+	std::string header_;
+	std::string body_;
+	std::size_t body_size_;
+	std::size_t total_size_;
 public:
 	HttpResponse();
-	HttpResponse(std::string response, std::size_t response_size);
+	HttpResponse(
+		std::string header, 
+		std::string body, 
+		std::size_t body_size, 
+		std::size_t total_size
+	);
 	~HttpResponse();
 	HttpResponse(const HttpResponse &other);
 	HttpResponse &operator=(const HttpResponse &other);

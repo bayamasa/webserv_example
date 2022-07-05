@@ -4,10 +4,17 @@ HttpResponse::HttpResponse()
 {
 }
 
-HttpResponse::HttpResponse(std::string response, std::size_t response_size)
+HttpResponse::HttpResponse(
+		std::string header, 
+		std::string body, 
+		std::size_t body_size, 
+		std::size_t total_size
+)
 {
-	response_ = response;
-	response_size_ = response_size;
+	header_ = header;
+	body_ = body;
+	body_size_ = body_size;
+	total_size_ = total_size;
 }
 
 HttpResponse::~HttpResponse()
