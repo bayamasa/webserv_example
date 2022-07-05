@@ -3,6 +3,13 @@
 HttpResponse::HttpResponse()
 {
 }
+
+HttpResponse::HttpResponse(std::string response, std::size_t response_size)
+{
+	response_ = response;
+	response_size_ = response_size;
+}
+
 HttpResponse::~HttpResponse()
 {
 }

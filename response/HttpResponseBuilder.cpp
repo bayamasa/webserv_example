@@ -55,14 +55,11 @@ void HttpResponseBuilder::findAbsPath(std::string dir, std::string file)
 	closedir(dirp);
 }
 
-
-
-std::string HttpResponseBuilder::findFilepath(HttpRequestData req)
+void HttpResponseBuilder::findFilepath(HttpRequestData req)
 {
 	std::vector<LocationConfig>::iterator i = conf_.GetLocation().begin();
 	std::vector<LocationConfig>::iterator ie = conf_.GetLocation().end();
-	
-	
+
 	for (; i != ie; i++)
 	{
 		if ((*i).location_ == req.GetPathDir())
@@ -70,21 +67,33 @@ std::string HttpResponseBuilder::findFilepath(HttpRequestData req)
 			findAbsPath((*i).root_ + (*i).location_, req.GetPathFile());
 		}
 	}
-	return (std::string("test"));
+	if (!t_abspath.exists)
+		throw std::runtime_error("file not found");
 }
 
-HttpResponse &HttpResponseBuilder::build(HttpRequestData req)
+void HttpResponseBuilder::readFile()
 {
-	std::string filepath;
+	std::ifstream ifs(t_abspath.filepath);
+	std::string line;
+	
+	if (ifs.fail())
+		throw std::ios_base::failure("file input error");
+    while (std::getline(ifs, line)){
+        read_str_ << line;
+    }
+}
 
+HttpResponse HttpResponseBuilder::build(HttpRequestData req)
+{
 	try
 	{
-		filepath = findFilepath(req);
-		
+		findFilepath(req);
+		readFile();
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	return HttpResponse();
+	
+	return HttpResponse("hello", 5);
 }

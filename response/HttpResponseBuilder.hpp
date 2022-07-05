@@ -10,6 +10,8 @@
 #include <limits.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <fstream>
+#include <ios>
 
 class HttpResponseBuilder
 {
@@ -20,16 +22,17 @@ private:
 		std::string filepath;
 		bool		exists;
 	} t_abspath;
+	std::stringstream read_str_;
 public:
 	HttpResponseBuilder();
 	HttpResponseBuilder(ConfigDTO conf);
 	~HttpResponseBuilder();
 	HttpResponseBuilder(const HttpResponseBuilder &other);
 	HttpResponseBuilder &operator=(const HttpResponseBuilder &other);
-	HttpResponse &build(HttpRequestData req);
-	std::string findFilepath(HttpRequestData req);
+	HttpResponse build(HttpRequestData req);
+	void findFilepath(HttpRequestData req);
 	void findAbsPath(std::string dir, std::string file);
-	
+	void readFile();
 };
 
 #endif
