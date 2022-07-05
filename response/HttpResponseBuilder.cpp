@@ -79,8 +79,22 @@ void HttpResponseBuilder::readFile()
 	if (ifs.fail())
 		throw std::ios_base::failure("file input error");
     while (std::getline(ifs, line)){
-        read_str_ << line;
+        file_str_ << line;
     }
+}
+
+void HttpResponseBuilder::buildHeader()
+{
+	header_	<< "HTTP/1.1 200 OK" << CRLF
+			<< "Server: webserv" << CRLF
+			<< "Date: Tue, 05 Jul 2022 06:44:07 GMT" << CRLF
+			<< "Content-Type: text/html" << CRLF
+			<< "Content-Length: 0" << CRLF
+			<< "Last-Modified: Mon, 04 Jul 2022 07:57:09 GMT" << CRLF
+			<< "Connection: keep-alive" << CRLF
+			<< "ETag: \"62c29d55-e5\"" << CRLF
+			<< "Accept-Ranges: bytes" << CRLF
+			<< CRLF
 }
 
 HttpResponse HttpResponseBuilder::build(HttpRequestData req)
@@ -89,11 +103,16 @@ HttpResponse HttpResponseBuilder::build(HttpRequestData req)
 	{
 		findFilepath(req);
 		readFile();
+		buildHeader();
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 	
-	return HttpResponse("hello", 5);
+	return HttpResponse(
+		header_.str(), 
+		file_str_.str(),
+		file_str_.str().size(), 
+		header_.str() + file_str_.str().size());
 }
