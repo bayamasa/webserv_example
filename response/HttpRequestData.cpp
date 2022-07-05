@@ -2,11 +2,11 @@
 
 HttpRequestData::HttpRequestData(){}
 
-HttpRequestData::HttpRequestData(std::string method, std::string path, std::string file, bool is_index)
+HttpRequestData::HttpRequestData(std::string method, std::string path_dir, std::string path_file, bool is_index)
 {
 	method_ = method;
-	path_ = path;
-	file_ = file;
+	path_dir_ = path_dir;
+	path_file_ = path_file;
 	is_index_ = is_index;
 }
 
@@ -23,4 +23,14 @@ HttpRequestData &HttpRequestData::operator=(const HttpRequestData &other)
 	{
 	}
 	return *this;
+}
+
+const std::string &HttpRequestData::GetPathDir() const
+{
+	return path_dir_;
+}
+
+const std::string &HttpRequestData::GetPathFile() const
+{
+	return path_file_;
 }

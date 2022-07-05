@@ -7,8 +7,8 @@ class HttpRequestData
 {
 private:
 	std::string method_;
-	std::string path_;
-	std::string file_;
+	std::string path_dir_;
+	std::string path_file_;
 	bool        is_index_;
 public:	
 	HttpRequestData();
@@ -16,7 +16,8 @@ public:
 	~HttpRequestData();
 	HttpRequestData(const HttpRequestData &other);
 	HttpRequestData &operator=(const HttpRequestData &other);
-	const std::string &GetPath() const;
+	const std::string &GetPathDir() const;
+	const std::string &GetPathFile() const;
 };
 
 #endif
