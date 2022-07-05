@@ -31,3 +31,8 @@ HttpResponse &HttpResponse::operator=(const HttpResponse &other)
 	}
 	return *this;
 }
+
+void HttpResponse::printResponse()
+{
+	std::cout << header_ << body_ << std::endl;
+}

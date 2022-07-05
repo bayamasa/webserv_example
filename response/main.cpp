@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
 	ConfigDTO conf = ConfigDTO();
 	conf.buildDemoConf();
 	
-	//http request data
+	// http request data
 	std::string method = "GET";
 	std::string path = "/";
 	std::string file = "index.html";
@@ -20,6 +20,7 @@ int main(int argc, char const *argv[])
 
 	//builder
 	HttpResponseBuilder builder = HttpResponseBuilder(conf);
-	
+	HttpResponse res = builder.build(data);
+	// res.printResponse();
 	return 0;
 }

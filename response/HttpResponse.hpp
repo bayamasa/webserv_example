@@ -3,7 +3,7 @@
 
 #include <string>
 #include <sstream>
-
+#include <iostream>
 class HttpResponse
 {
 private:
@@ -23,6 +23,7 @@ public:
 	~HttpResponse();
 	HttpResponse(const HttpResponse &other);
 	HttpResponse &operator=(const HttpResponse &other);
+	void printResponse();
 };
 
 #endif
