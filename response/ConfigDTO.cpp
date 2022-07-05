@@ -27,10 +27,13 @@ std::vector<LocationConfig> &ConfigDTO::GetLocation()
 
 void ConfigDTO::buildDemoConf()
 {
-	locations_.at(0).location_ = "/";
-	locations_.at(0).root_ = "/html";
-	locations_.at(0).allowed_methods_.push_back("GET");
-	locations_.at(0).autoindex_ = true;
-	locations_.at(0).indexes_.push_back("index.html");
-	locations_.at(0).cgi_path_ = std::string();
+	LocationConfig loc_demo;
+	
+	loc_demo.location_ = "/";
+	loc_demo.root_ = "/html";
+	loc_demo.allowed_methods_.push_back("GET");
+	loc_demo.autoindex_ = true;
+	loc_demo.indexes_.push_back("index.html");
+	loc_demo.cgi_path_ = std::string();
+	locations_.push_back(loc_demo);
 }
