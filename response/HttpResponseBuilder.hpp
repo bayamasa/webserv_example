@@ -13,6 +13,7 @@
 #include <fstream>
 #include <ios>
 
+const static std::string CRLF = "\r\n";
 
 class HttpResponseBuilder
 {
@@ -24,7 +25,6 @@ private:
 		bool		exists;
 	} t_abspath;
 	std::ostringstream header_;
-	static const std::string CRLF = "\r\n";
 	std::stringstream file_str_;
 public:
 	HttpResponseBuilder();
@@ -32,8 +32,8 @@ public:
 	~HttpResponseBuilder();
 	HttpResponseBuilder(const HttpResponseBuilder &other);
 	HttpResponseBuilder &operator=(const HttpResponseBuilder &other);
-	HttpResponse build(HttpRequestData req);
-	void findFilepath(HttpRequestData req);
+	HttpResponse *build(HttpRequestData &req);
+	void findFilepath(HttpRequestData &req);
 	void findAbsPath(std::string dir, std::string file);
 	void readFile();
 	void buildHeader();

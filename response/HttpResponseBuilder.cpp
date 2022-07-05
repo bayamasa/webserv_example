@@ -35,9 +35,9 @@ void HttpResponseBuilder::findAbsPath(std::string dir, std::string file)
 	
 	cwd = getcwd(NULL, 0);
 	
-	fullpath = std::string(cwd) + std::string("/") + dir;
+	fullpath = std::string(cwd) + dir;
 	free(cwd);
-	std::cout << "fullpath" << fullpath << std::endl;
+	std::cout << "fullpath: " << fullpath << std::endl;
 	
 	
 	dirp = opendir(fullpath.c_str());
@@ -45,9 +45,10 @@ void HttpResponseBuilder::findAbsPath(std::string dir, std::string file)
 		throw std::runtime_error("directory not found");
 	while ((ent = readdir(dirp)) != NULL)
 	{
-		if (ent->d_name == file.c_str())
+		if (strcmp(ent->d_name,file.c_str()) == 0)
 		{
-			t_abspath.filepath = fullpath + std::string("/") + file;
+			std::cout << "kita" << std::endl;
+			t_abspath.filepath = fullpath + file;
 			t_abspath.exists = true;
 			break;
 		}
@@ -55,7 +56,7 @@ void HttpResponseBuilder::findAbsPath(std::string dir, std::string file)
 	closedir(dirp);
 }
 
-void HttpResponseBuilder::findFilepath(HttpRequestData req)
+void HttpResponseBuilder::findFilepath(HttpRequestData &req)
 {
 	std::vector<LocationConfig>::iterator i = conf_.GetLocation().begin();
 	std::vector<LocationConfig>::iterator ie = conf_.GetLocation().end();
@@ -79,7 +80,7 @@ void HttpResponseBuilder::readFile()
 	if (ifs.fail())
 		throw std::ios_base::failure("file input error");
     while (std::getline(ifs, line)){
-        file_str_ << line;
+        file_str_ << line << CRLF;
     }
 }
 
@@ -94,10 +95,10 @@ void HttpResponseBuilder::buildHeader()
 			<< "Connection: keep-alive" << CRLF
 			<< "ETag: \"62c29d55-e5\"" << CRLF
 			<< "Accept-Ranges: bytes" << CRLF
-			<< CRLF
+			<< CRLF;
 }
 
-HttpResponse HttpResponseBuilder::build(HttpRequestData req)
+HttpResponse *HttpResponseBuilder::build(HttpRequestData &req)
 {
 	try
 	{
@@ -108,11 +109,12 @@ HttpResponse HttpResponseBuilder::build(HttpRequestData req)
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
+		exit(1);
 	}
 	
-	return HttpResponse(
+	return new HttpResponse(
 		header_.str(), 
 		file_str_.str(),
 		file_str_.str().size(), 
-		header_.str() + file_str_.str().size());
+		header_.str().size() + file_str_.str().size());
 }
